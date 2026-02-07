@@ -1,0 +1,22 @@
+.DS_Store
+node_modules
+.next
+out
+coverage
+*.log
+
+# env
+.env
+.env.*.local
+!.env.example
+
+# vercel
+.vercel
+
+# local
+*.tsbuildinfo
+
+# ✅ Ensure static game images are deployed
+!public/
+!public/images/
+!public/images/**

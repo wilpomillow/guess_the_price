@@ -1,0 +1,164 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* --------------------------------------------
+   THEME VARIABLES
+-------------------------------------------- */
+
+:root {
+  --bg-a: #ffffff;
+  --bg-b: #ff6a00; /* orange */
+  --panel: rgba(255, 255, 255, 0.78);
+  --text: #1f2937;
+  --muted: rgba(31, 41, 55, 0.65);
+  --ring: rgba(255, 106, 0, 0.55);
+  --counter: #ff6a00;
+
+  /* borders / surfaces */
+  --glass-border: rgba(31, 41, 55, 0.14);
+
+  /* UI controls (light mode) */
+  --btn-border: rgba(31, 41, 55, 0.28);
+  --btn-icon-bg: rgba(255, 255, 255, 0.82);
+  --btn-ghost-bg: rgba(255, 106, 0, 0.14);
+  --btn-primary-bg: #ff6a00;
+  --btn-primary-text: #ffffff;
+}
+
+.dark {
+  --bg-a: #111827; /* slate-900 */
+  --bg-b: #ff6a00;
+
+  /* darker, less orange bleed */
+  --panel: rgba(17, 24, 39, 0.92);
+
+  --text: rgba(255, 255, 255, 0.92);
+  --muted: rgba(255, 255, 255, 0.68);
+  --ring: rgba(255, 171, 64, 0.55);
+  --counter: rgba(255, 255, 255, 0.82);
+
+  --glass-border: rgba(255, 255, 255, 0.14);
+
+  /* UI controls (dark mode) */
+  --btn-border: rgba(255, 255, 255, 0.18);
+  --btn-icon-bg: rgba(255, 255, 255, 0.08);
+  --btn-ghost-bg: rgba(255, 255, 255, 0.08);
+  --btn-primary-bg: #ff6a00;
+  --btn-primary-text: #ffffff;
+}
+
+/* --------------------------------------------
+   ROOT / BACKGROUND (FULL PAGE, NO CLIPPING)
+-------------------------------------------- */
+
+html {
+  min-height: 100%;
+  background:
+    radial-gradient(1200px 800px at 20% 15%, rgba(255, 106, 0, 0.38), transparent 60%),
+    radial-gradient(1200px 800px at 80% 85%, rgba(255, 106, 0, 0.28), transparent 60%),
+    linear-gradient(135deg, var(--bg-a), var(--bg-b));
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+/* --------------------------------------------
+   BODY / SCROLL BEHAVIOR (ALLOW PAGE SCROLL)
+-------------------------------------------- */
+
+body {
+  min-height: 100%;
+  color: var(--text);
+  background: transparent; /* background handled by html */
+
+  /* ✅ allow scrolling */
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  -webkit-overflow-scrolling: touch;
+}
+
+/* --------------------------------------------
+   GLOBAL RESETS / POLISH
+-------------------------------------------- */
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+img,
+svg,
+video,
+canvas {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  touch-action: manipulation;
+}
+
+/* nice default focus ring */
+:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 3px;
+}
+
+/* --------------------------------------------
+   GLASS / UI UTILITIES
+-------------------------------------------- */
+
+@layer components {
+  .glass {
+    background: var(--panel);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+  }
+
+  .btnIcon {
+    @apply rounded-xl border transition hover:brightness-110 active:scale-[0.98];
+    border-color: var(--btn-border);
+    background: var(--btn-icon-bg);
+  }
+
+  .btnPrimary {
+    @apply inline-flex items-center justify-center rounded-xl border px-4 py-3 text-base font-extrabold tracking-wide transition active:scale-[0.98] hover:brightness-110;
+    border-color: var(--btn-border);
+    background: var(--btn-primary-bg);
+    color: var(--btn-primary-text);
+  }
+
+  .btnGhost {
+    @apply inline-flex items-center justify-center rounded-xl border px-4 py-3 text-base font-extrabold tracking-wide transition active:scale-[0.98] hover:brightness-110;
+    border-color: var(--btn-border);
+    background: var(--btn-ghost-bg);
+    color: var(--text);
+  }
+}
+
+/* --------------------------------------------
+   NEXT ROOT SAFETY
+-------------------------------------------- */
+
+#__next {
+  min-height: 100%;
+}
+
+/* if you're using a custom font var */
+.font-sour-gummy {
+  font-family: var(--font-sour-gummy);
+  font-weight: 400;
+}
+
+input,
+textarea,
+select {
+  font-family: var(--font-bangers), system-ui, sans-serif;
+}
+
+.font-bangers {
+  font-family: var(--font-bangers), system-ui, sans-serif;
+}
