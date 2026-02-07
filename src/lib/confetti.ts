@@ -1,35 +1,33 @@
-const PURPLE = "#7c3aed" // violet-600
+import confetti from "canvas-confetti"
 
-type ConfettiFn = (opts: any) => void
-
-async function getConfetti(): Promise<ConfettiFn> {
-  // Works whether the package exports default or module.exports
-  const mod: any = await import("canvas-confetti")
-  return (mod?.default ?? mod) as ConfettiFn
-}
+/**
+ * Centralised brand colour
+ * Keep this in sync with --btn-primary-bg (#ff6a00)
+ */
+const ORANGE = "#ff6a00"
 
 export async function fireSideConfetti() {
-  const confetti = await getConfetti()
-
-  const durationMs = 1200
-  const end = Date.now() + durationMs
-
-  const shoot = (originX: number) => {
-    confetti({
-      particleCount: 6,
-      angle: originX < 0.5 ? 60 : 120,
-      spread: 70,
-      startVelocity: 42,
-      ticks: 200,
-      origin: { x: originX, y: 0.6 },
-      colors: [PURPLE],
-      scalar: 1.1
-    })
+  const defaults = {
+    particleCount: 40,
+    spread: 70,
+    startVelocity: 35,
+    gravity: 0.9,
+    ticks: 220,
+    scalar: 1,
+    colors: [ORANGE],
   }
 
-  const timer = setInterval(() => {
-    shoot(0.02) // left
-    shoot(0.98) // right
-    if (Date.now() > end) clearInterval(timer)
-  }, 140)
+  // Left burst
+  confetti({
+    ...defaults,
+    origin: { x: 0.1, y: 0.6 },
+    angle: 60,
+  })
+
+  // Right burst
+  confetti({
+    ...defaults,
+    origin: { x: 0.9, y: 0.6 },
+    angle: 120,
+  })
 }
